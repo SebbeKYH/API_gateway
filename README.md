@@ -3,11 +3,11 @@
 Sebastian Andersson, Rasmus Adolfsson, Ole Lundgren
 
 Inställningar för APISIX
-Upstream
+__Upstream__
 - Name : weather2
 - Host: host.docker.internal
 - Port: 9080
-Route
+__Route__
 - Name: weather
 - Host: host.docker.internal
 - Port: 5000
