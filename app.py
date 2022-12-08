@@ -2,6 +2,8 @@ import json
 from flask import Flask, Response
 import paho.mqtt.client as paho
 
+json_message = {}
+
 def create_app():
     app = Flask(__name__)
 
@@ -37,9 +39,8 @@ def on_connect(rc):
 
 
 def on_message(client, userdata, msg):
-    global message
-    global json_message
     message =str(msg.payload.decode("utf-8"))
+    global json_message
     json_message = json.loads(message)
 
 client = paho.Client()
