@@ -2,6 +2,8 @@ import json
 from flask import Flask, Response
 import paho.mqtt.client as paho
 
+json_message = {}
+
 def create_app():
     app = Flask(__name__)
 
@@ -28,22 +30,12 @@ def create_app():
     return app
 
 
-def on_subscribe(var1, var2, mid, granted_qos):
-    print("Subscribed: "+str(mid)+" "+str(granted_qos))
-
-
-def on_connect(rc):
-    print('CONNACK received with code %d.' % rc)
-
-
 def on_message(client, userdata, msg):
-    global message
     global json_message
     message =str(msg.payload.decode("utf-8"))
     json_message = json.loads(message)
 
 client = paho.Client()
-client.on_subscribe = on_subscribe
 client.on_message = on_message
 client.connect('broker.mqttdashboard.com', 1883)
 client.subscribe('/weather/ROS', qos=1)
